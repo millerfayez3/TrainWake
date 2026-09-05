@@ -14,7 +14,7 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="/">
+  <base href="/flutter_web/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -31,16 +31,40 @@
 
   <title>train_wake</title>
   <link rel="manifest" href="manifest.json">
+  <style>
+    body {
+      margin: 0;
+      background-color: #0B0F17;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #FFFFFF;
+    }
+    .loading-box {
+      text-align: center;
+    }
+    .train-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(245, 158, 11, 0.2);
+      border-top-color: #F59E0B;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
-  <!--
-    You can customize the "flutter_bootstrap.js" script.
-    This is useful to provide a custom configuration to the Flutter loader
-    or to give the user feedback during the initialization process.
-
-    For more details:
-    * https://docs.flutter.dev/platform-integration/web/initialization
-  -->
+  <div class="loading-box" id="loading-indicator">
+    <div class="train-spinner"></div>
+    <h2 style="margin: 0 0 6px; font-size: 20px; font-weight: 800; color: #F59E0B;">TrainWake Egypt</h2>
+    <p style="margin: 0; font-size: 13px; color: #94A3B8;">جاري تحميل محرك قطارات مصر الذكي عبر الويب...</p>
+  </div>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

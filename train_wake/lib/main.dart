@@ -11,53 +11,60 @@ import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:vibration/vibration.dart';
 import 'package:train_wake/core/theme/theme_provider.dart';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Silence any leftover audio/vibration immediately on startup
-  try {
-    FlutterRingtonePlayer().stop();
-    Vibration.cancel();
-  } catch (_) {}
-
-  // Initialize Hive for robust local persistence of complex state
-  await Hive.initFlutter();
-  final tripBox = await Hive.openBox('trip_state_box');
-  await Hive.openBox('history_box');
-
-  // Initialize Firebase — failure-tolerant.
-  // If google-services.json is missing or Firebase is unreachable,
-  // the app still boots and all TrainWake trip/alarm features work normally.
-  // Only authentication features become unavailable.
-  try {
-    await Firebase.initializeApp();
-  } catch (_) {
-    // Firebase not configured — auth features will show graceful messages.
-    // Trip tracking, GPS, alarms, and Hive continue to function.
+  // Silence any leftover audio/vibration immediately on startup (Mobile only)
+  if (!kIsWeb) {
+    try {
+      FlutterRingtonePlayer().stop();
+      Vibration.cancel();
+    } catch (_) {}
   }
 
-  // Only resume background tracking service if there was a genuinely recent in-flight active trip
-  final activeTrip = tripBox.get('active_trip');
-  if (activeTrip != null && activeTrip['isActive'] == true) {
-    final startedAtStr = activeTrip['startedAt'] as String?;
-    final startedAt = startedAtStr != null ? DateTime.tryParse(startedAtStr) : null;
-    final isStale = startedAt == null || DateTime.now().difference(startedAt).inHours > 10;
+  // Initialize Hive for robust local persistence of complex state
+  Box? tripBox;
+  try {
+    await Hive.initFlutter();
+    tripBox = await Hive.openBox('trip_state_box');
+    await Hive.openBox('history_box');
+  } catch (e) {
+    debugPrint('Hive init warning: $e');
+  }
 
-    if (isStale) {
-      await tripBox.delete('active_trip');
+  // Initialize Firebase — failure-tolerant.
+  if (!kIsWeb) {
+    try {
+      await Firebase.initializeApp();
+    } catch (_) {}
+  }
+
+  // Only resume background tracking service on native Android/iOS
+  if (!kIsWeb && tripBox != null) {
+    final activeTrip = tripBox.get('active_trip');
+    if (activeTrip != null && activeTrip['isActive'] == true) {
+      final startedAtStr = activeTrip['startedAt'] as String?;
+      final startedAt = startedAtStr != null ? DateTime.tryParse(startedAtStr) : null;
+      final isStale = startedAt == null || DateTime.now().difference(startedAt).inHours > 10;
+
+      if (isStale) {
+        await tripBox.delete('active_trip');
+        try {
+          final service = FlutterBackgroundService();
+          service.invoke('stopService');
+        } catch (_) {}
+      } else {
+        final trackingService = BackgroundTrackingService();
+        await trackingService.initialize();
+      }
+    } else {
       try {
         final service = FlutterBackgroundService();
         service.invoke('stopService');
       } catch (_) {}
-    } else {
-      final trackingService = BackgroundTrackingService();
-      await trackingService.initialize();
     }
-  } else {
-    try {
-      final service = FlutterBackgroundService();
-      service.invoke('stopService');
-    } catch (_) {}
   }
 
   runApp(
