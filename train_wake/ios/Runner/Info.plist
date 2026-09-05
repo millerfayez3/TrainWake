@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Train Wake</string>
+	<string>TrainWake</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -66,5 +66,22 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+
+	<!-- TrainWake iOS Railway Location & Background Alarm Permissions -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>يحتاج تطبيق TrainWake للوصول إلى موقعك لتتبع حركة القطار وتنبيهك عند الاقتراب من محطتك المستهدفة.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>يحتاج التطبيق للوصول لموقعك في الخلفية لضمان إيقاظك وتنبيهك حتى أثناء قفل شاشة الهاتف.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>يحتاج التطبيق للوصول لموقعك في الخلفية لضمان إيقاظك وتنبيهك حتى أثناء قفل شاشة الهاتف.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>audio</string>
+		<string>fetch</string>
+		<string>processing</string>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>

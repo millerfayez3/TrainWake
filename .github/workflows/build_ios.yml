@@ -1,0 +1,46 @@
+name: Build TrainWake iOS & Android
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    name: Build iOS App (.ipa / Runner.app)
+    runs-on: macos-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Install dependencies
+        working-directory: ./train_wake
+        run: flutter pub get
+
+      - name: Run automated test suite
+        working-directory: ./train_wake
+        run: flutter test
+
+      - name: Build iOS Application
+        working-directory: ./train_wake
+        run: flutter build ios --release --no-codesign
+
+      - name: Package Unsigned IPA
+        working-directory: ./train_wake/build/ios/iphoneos
+        run: |
+          mkdir Payload
+          cp -r Runner.app Payload/
+          zip -r TrainWake-iOS-unsigned.ipa Payload
+
+      - name: Upload iOS Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: TrainWake-iOS
+          path: train_wake/build/ios/iphoneos/TrainWake-iOS-unsigned.ipa
+          retention-days: 14
