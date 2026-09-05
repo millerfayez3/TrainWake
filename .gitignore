@@ -1,0 +1,28 @@
+# Flutter & Dart
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# Android build outputs
+android/app/debug/
+android/app/profile/
+android/app/release/
+**/build/
+
+# Secrets and Private Credentials (NEVER COMMIT)
+*serviceAccountKey.json
+*serviceAccount*.json
+*.keystore
+*.jks
+*.key
+key.properties
+local.properties
+
+# IDE & OS
+.DS_Store
+*.iml
+.idea/
+*.log

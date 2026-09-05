@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "556787617025",
+    "project_id": "train-wake",
+    "storage_bucket": "train-wake.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556787617025:android:1635cff7ab73c189309f00",
+        "android_client_info": {
+          "package_name": "com.trainwake.train_wake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "556787617025-tgcp9kiv3cvq82h41rld39d11aous8qb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trainwake.train_wake",
+            "certificate_hash": "57981c793290c5edfbbed693f86bfdd4afc44079"
+          }
+        },
+        {
+          "client_id": "556787617025-n38s8vqaha9epm3a310hifrl5l66esan.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzOLEhSxIJDkJj0RIiWG8m7Ec_6efnFjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556787617025-n38s8vqaha9epm3a310hifrl5l66esan.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
