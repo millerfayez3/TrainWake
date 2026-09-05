@@ -19,6 +19,9 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Disable Swift Package Manager (Use CocoaPods)
+        run: flutter config --no-enable-swift-package-manager
+
       - name: Install dependencies
         working-directory: ./train_wake
         run: flutter pub get
@@ -26,6 +29,10 @@ jobs:
       - name: Run automated test suite
         working-directory: ./train_wake
         run: flutter test
+
+      - name: Install CocoaPods dependencies
+        working-directory: ./train_wake/ios
+        run: pod install --repo-update
 
       - name: Build iOS Application
         working-directory: ./train_wake
