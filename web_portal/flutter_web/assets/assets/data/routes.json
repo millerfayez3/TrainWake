@@ -1,0 +1,20 @@
+[
+  {
+    "id": "alex_cairo",
+    "nameAr": "الإسكندرية - القاهرة",
+    "nameEn": "Alexandria - Cairo",
+    "stationIds": [
+      "alexandria_misr",
+      "tanta",
+      "cairo_ramses"
+    ],
+    "rawGeometry": [
+      [31.1925, 29.9056],
+      [31.1800, 29.9200],
+      [31.0500, 30.4000],
+      [30.7871, 31.0011],
+      [30.4500, 31.1200],
+      [30.0636, 31.2464]
+    ]
+  }
+]

@@ -11,6 +11,8 @@ android/app/debug/
 android/app/profile/
 android/app/release/
 **/build/
+*.apk
+web_portal/downloads/
 
 # Secrets and Private Credentials (NEVER COMMIT)
 *serviceAccountKey.json

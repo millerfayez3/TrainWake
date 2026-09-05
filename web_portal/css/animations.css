@@ -1,0 +1,47 @@
+/* ==========================================================================
+   TrainWake Micro-Animations & Glow Effects
+   ========================================================================== */
+
+@keyframes pulse-dot {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 8px rgba(245, 158, 11, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+@keyframes alarm-flash {
+  0%, 100% {
+    background-color: #161F30;
+    box-shadow: none;
+  }
+  50% {
+    background-color: rgba(244, 63, 94, 0.25);
+    box-shadow: 0 0 25px rgba(244, 63, 94, 0.5);
+  }
+}
+
+.alarm-active {
+  animation: alarm-flash 0.6s infinite !important;
+  border-color: #F43F5E !important;
+}
+
+@keyframes train-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px #F59E0B, 0 0 20px rgba(245, 158, 11, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px #F59E0B, 0 0 35px rgba(245, 158, 11, 0.8);
+  }
+}
+
+.train-running {
+  animation: train-glow 1.2s infinite;
+}

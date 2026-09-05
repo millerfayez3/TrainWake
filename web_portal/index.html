@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrainWake — منبه الاستيقاظ الذكي لقطارات مصر | Egyptian Railway Smart Alarm</title>
+  <meta name="description" content="تطبيق TrainWake الذكي لركاب السكك الحديدية المصرية. تنبيه استيقاظ فائق الدقة بالـ GPS قبل وصول محطتك، يعمل بدون إنترنت وفي الأنفاق مع حماية كاملة للخصوصية والبطارية.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23F59E0B'><path d='M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z'/></svg>">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       Navigation Bar
+       ======================================================================== -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>TrainWake <span>قطارات مصر</span></h1>
+          <p class="brand-tagline">منبه الاستيقاظ الذكي • ENR Smart Railway Alarm</p>
+        </div>
+        <span class="brand-badge">v1.0.0</span>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features">المميزات الفائقة</a></li>
+          <li><a href="#simulation">محاكي الرحلات الحي</a></li>
+          <li><a href="#stations">شبكة المحطات (92)</a></li>
+          <li><a href="#download">تحميل التطبيق</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle-btn" class="theme-toggle" title="تبديل المظهر">
+          🌓
+        </button>
+        <a href="#simulation" class="btn-secondary">
+          🕹️ جرب المحاكاة
+        </a>
+        <a href="#download" class="btn-primary">
+          📥 تحميل APK
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       Hero Section
+       ======================================================================== -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="hero-tag-pulse"></span>
+          <span>تنبيه قطارات مصر فائق الاعتمادية • يعمل أوفلاين بالكامل</span>
+        </div>
+
+        <h1 class="hero-title">
+          نام براحتك في القطار..<br>
+          <span class="gradient-text">TrainWake هيصحيك بالمللي</span> عند محطتك!
+        </h1>
+
+        <p class="hero-desc">
+          تطبيق الاستيقاظ الذكي الأول المخصص لركاب السكك الحديدية المصرية. حساب ديناميكي لوقت الوصول (ETA)، تتبع مستمر في الأنفاق بدون إنترنت، وإنذار تصاعدي مضمون يوقظك بدقة قبل محطتك بمسافة الأمان التي تختارها.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="downloads/TrainWake.apk" download="TrainWake.apk" class="btn-primary" style="font-size: 1rem; padding: 0.8rem 1.6rem;">
+            📥 تحميل التطبيق لأندرويد (APK)
+          </a>
+          <a href="flutter_web/index.html" target="_blank" class="btn-secondary" style="font-size: 1rem; padding: 0.8rem 1.6rem;">
+            🌐 تشغيل تطبيق الويب الكامل (Flutter Web)
+          </a>
+          <button id="test-audio-btn" class="btn-secondary">
+            🔔 تجربة منبه الاستيقاظ
+          </button>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <h3>92</h3>
+            <p>محطة مسجلة بدقة GPS</p>
+          </div>
+          <div class="stat-item">
+            <h3>100%</h3>
+            <p>يعمل بدون إنترنت (Offline)</p>
+          </div>
+          <div class="stat-item">
+            <h3>0%</h3>
+            <p>استنزاف للبطارية في الخلفية</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Mockup / Visual Card -->
+      <div class="phone-mockup-wrapper">
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <div class="phone-header">
+              <span style="font-weight: 800; font-size: 0.85rem; color: #FFFFFF;">TrainWake</span>
+              <span class="phone-pill" style="background: rgba(16, 185, 129, 0.2); color: #10B981;">
+                🟢 GPS نشط
+              </span>
+            </div>
+
+            <!-- Mini Active Card -->
+            <div class="phone-card" style="border: 1px solid #F59E0B;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <span style="font-size: 0.75rem; color: #94A3B8;">الوجهة المحددة</span>
+                <span style="font-size: 0.7rem; color: #F59E0B; font-weight: 700;">منبه نشط</span>
+              </div>
+              <h3 style="font-size: 1.15rem; color: #FFFFFF; font-weight: 800;">سيدي جابر (الإسكندرية)</h3>
+              <p style="font-size: 0.75rem; color: #64748B;">قطار التوربيني السريع • خط القاهرة - الإسكندرية</p>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.06);">
+                <div>
+                  <span style="font-size: 0.68rem; color: #94A3B8;">السرعة الحالية</span>
+                  <p style="font-size: 1.1rem; font-weight: 800; color: #FFFFFF; font-family: var(--font-en);">118 <span style="font-size: 0.7rem; color: #94A3B8;">km/h</span></p>
+                </div>
+                <div>
+                  <span style="font-size: 0.68rem; color: #94A3B8;">وقت الوصول (ETA)</span>
+                  <p style="font-size: 1.1rem; font-weight: 800; color: #10B981; font-family: var(--font-en);">14 <span style="font-size: 0.7rem; color: #94A3B8;">دقيقة</span></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mini Track Progress -->
+            <div class="phone-card">
+              <span style="font-size: 0.75rem; color: #94A3B8; display: block; margin-bottom: 0.5rem;">مسار الرحلة الحي</span>
+              <div style="height: 6px; background: #334155; border-radius: 4px; overflow: hidden; position: relative;">
+                <div style="width: 78%; height: 100%; background: linear-gradient(90deg, #F59E0B, #10B981);"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; margin-top: 0.4rem; font-size: 0.7rem; color: #64748B;">
+                <span>القاهرة</span>
+                <span style="color: #F59E0B; font-weight: 700;">دمنهور (تمت)</span>
+                <span>الإسكندرية</span>
+              </div>
+            </div>
+
+            <!-- Safety Note -->
+            <div style="background: rgba(245, 158, 11, 0.1); border-radius: 8px; padding: 0.6rem; border: 1px dashed rgba(245, 158, 11, 0.3); font-size: 0.72rem; color: #F59E0B;">
+              🛡️ نظام الاستيقاظ الذكي سيبدأ قبل المحطة بـ 10 دقائق لضمان تجهيز حقائبك.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Interactive Live Simulation Deck Section
+       ======================================================================== -->
+  <section id="simulation" class="sim-section">
+    <div class="section-header">
+      <span class="section-badge">🕹️ تجربة تفاعلية حية في المتصفح</span>
+      <h2 class="section-title">مركز المحاكاة والتحكم في قطارات مصر</h2>
+      <p class="section-subtitle">
+        جرب بنفسك كيف يتعامل محرك TrainWake الفيزيائي مع حركة القطارات، وحساب السرعة والمسافة وتفعيل المنبه الصوتي تلقائياً عند الاقتراب من المحطة.
+      </p>
+    </div>
+
+    <div id="sim-deck-container" class="sim-deck">
+      <!-- Toolbar -->
+      <div class="sim-toolbar">
+        <div class="route-picker">
+          <label for="sim-route-select">اختر خط السير:</label>
+          <select id="sim-route-select" class="select-styled">
+            <option value="cairo_alex">القاهرة ➔ الإسكندرية (Misr Express - 208 km)</option>
+            <option value="cairo_assiut">القاهرة ➔ أسيوط (Upper Egypt Line - 375 km)</option>
+            <option value="cairo_giza">القاهرة ➔ الجيزة (اختبار سريع - 10 km)</option>
+          </select>
+        </div>
+
+        <div class="speed-chips">
+          <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; margin-left: 0.3rem;">تسريع:</span>
+          <button class="speed-chip" data-multiplier="1">1x</button>
+          <button class="speed-chip active" data-multiplier="5">5x</button>
+          <button class="speed-chip" data-multiplier="10">10x</button>
+          <button class="speed-chip" data-multiplier="20">20x</button>
+        </div>
+
+        <div class="sim-actions">
+          <button id="btn-sim-play" class="sim-btn sim-btn-play">
+            ▶️ بدء المحاكاة
+          </button>
+          <button id="btn-sim-pause" class="sim-btn sim-btn-pause">
+            ⏸️ إيقاف مؤقت
+          </button>
+          <button id="btn-sim-reset" class="sim-btn sim-btn-reset">
+            🔄 إعادة ضبط
+          </button>
+        </div>
+      </div>
+
+      <!-- Cockpit HUD Grid -->
+      <div class="sim-hud">
+        <div class="hud-tile">
+          <div class="hud-tile-label">
+            <span>عداد السرعة الرقمي</span>
+            <span style="color: var(--accent-cyan);">SPEED</span>
+          </div>
+          <div class="hud-tile-value">
+            <span id="hud-speed-val">0</span>
+            <span class="hud-tile-unit">km/h</span>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+            (<span id="hud-speed-mps">0.0</span> m/s)
+          </div>
+        </div>
+
+        <div class="hud-tile">
+          <div class="hud-tile-label">
+            <span>المسافة المتبقية للمحطة</span>
+            <span style="color: var(--accent-amber);">REMAINING</span>
+          </div>
+          <div class="hud-tile-value">
+            <span id="hud-dist-val">208.0</span>
+            <span class="hud-tile-unit">كم</span>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+            دقة الحساب: 0.05 كم
+          </div>
+        </div>
+
+        <div class="hud-tile">
+          <div class="hud-tile-label">
+            <span>وقت الوصول التقديري</span>
+            <span style="color: var(--accent-emerald);">ETA</span>
+          </div>
+          <div class="hud-tile-value">
+            <span id="hud-eta-val">—</span>
+            <span class="hud-tile-unit">دقيقة</span>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">
+            تحديث فوري ديناميكي
+          </div>
+        </div>
+
+        <div class="hud-tile">
+          <div class="hud-tile-label">
+            <span>حالة المنبه والتتبع</span>
+            <span style="color: #A855F7;">STATUS</span>
+          </div>
+          <div id="hud-status-badge" style="font-size: 1.1rem; font-weight: 800; color: #94A3B8; margin-top: 6px;">
+            جاهز للانطلاق
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 8px;">
+            منطقة الأمان: 15 كم
+          </div>
+        </div>
+      </div>
+
+      <!-- Linear Railway Track -->
+      <div class="track-wrapper">
+        <div class="track-rail-container">
+          <div class="track-rail-line">
+            <div id="track-fill-line" class="track-rail-fill"></div>
+            <div id="train-marker-el" class="train-marker" title="موقع القطار الحالي">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div id="track-stations-list" class="track-stations-grid">
+          <!-- Populated dynamically by simulation.js -->
+        </div>
+      </div>
+
+      <!-- Fault Injection Bar -->
+      <div class="fault-suite">
+        <h4>⚡ محاكاة الظروف الصعبة (Fault Injection):</h4>
+        <div class="fault-buttons">
+          <button id="fault-tunnel" class="btn-fault">🚇 دخول نفق (فقدان GPS)</button>
+          <button id="fault-gps-restore" class="btn-fault">📡 استعادة إشارة GPS</button>
+          <button id="fault-stop" class="btn-fault">🛑 توقف بمحطة (0 km/h)</button>
+          <button id="fault-alarm" class="btn-fault" style="border-color: rgba(244, 63, 94, 0.4); color: #F43F5E;">🚨 إطلاق منبه الاستيقاظ</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Stations Explorer Section (92 Stations)
+       ======================================================================== -->
+  <section id="stations" class="stations-section">
+    <div class="stations-container">
+      <div class="section-header">
+        <span class="section-badge">🗺️ السجل الجغرافي المعتمد</span>
+        <h2 class="section-title">شبكة السكك الحديدية المصرية (92 محطة)</h2>
+        <p class="section-subtitle">
+          قاعدة بيانات جغرافية شاملة تغطي محافظات القاهرة الكبرى، الدلتا، القناة، والصعيد حتى أقصى الجنوب في أسوان.
+        </p>
+      </div>
+
+      <div class="search-filter-bar">
+        <div class="search-input-wrapper">
+          <input type="text" id="station-search-input" placeholder="ابحث باسم المحطة بالعربية أو الإنجليزية (مثلاً: طنطا، الأقصر، سيدي جابر)...">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </div>
+
+        <div class="region-filters">
+          <button class="region-filter active" data-region="all">جميع المحطات (<span id="stations-count-badge">92 محطة</span>)</button>
+          <button class="region-filter" data-region="cairo">القاهرة الكبرى والجيزة</button>
+          <button class="region-filter" data-region="delta">وجه بحري والدلتا</button>
+          <button class="region-filter" data-region="alex">الإسكندرية والساحل</button>
+          <button class="region-filter" data-region="canal">مدن القناة (السويس، بورسعيد، الإسماعيلية)</button>
+          <button class="region-filter" data-region="upper">وجه قبلي والصعيد (بني سويف حتى أسوان)</button>
+        </div>
+      </div>
+
+      <div id="stations-grid-container" class="stations-grid">
+        <!-- Station cards injected via stations_data.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Core Features Section
+       ======================================================================== -->
+  <section id="features" class="hero" style="padding-top: 2rem; background: #0F172A;">
+    <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+      <span class="section-badge">🛡️ هندسة برمجية متقدمة</span>
+      <h2 class="section-title">لماذا TrainWake هو الخيار الأكثر أماناً لركاب القطارات؟</h2>
+      <p class="section-subtitle" style="margin-bottom: 3rem;">
+        تم بناء التطبيق مع مراعاة كافة التحديات الواقعية التي تواجه المسافرين في السكك الحديدية المصرية.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; text-align: right;">
+        <div class="phone-card" style="padding: 1.5rem;">
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">🚇</div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.5rem;">مرونة تامة في الأنفاق</h3>
+          <p style="color: #94A3B8; font-size: 0.9rem; line-height: 1.7;">
+            خوارزمية حساب المسار الميت (Dead-Reckoning) تواصل تقدير موقع القطار وسرعته حتى لو انقطعت إشارة الـ GPS داخل الأنفاق أو المناطق المعزولة.
+          </p>
+        </div>
+
+        <div class="phone-card" style="padding: 1.5rem;">
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">🔋</div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.5rem;">صفر استنزاف للبطارية</h3>
+          <p style="color: #94A3B8; font-size: 0.9rem; line-height: 1.7;">
+            استخدام ذكي لمعدل استطلاع الحساسات (Dynamic Polling Rate) بحيث يوفر الطاقة عندما يكون القطار بعيداً، ويزيد الدقة عند الاقتراب.
+          </p>
+        </div>
+
+        <div class="phone-card" style="padding: 1.5rem;">
+          <div style="font-size: 2rem; margin-bottom: 0.75rem;">🔒</div>
+          <h3 style="font-size: 1.2rem; font-weight: 800; color: #FFFFFF; margin-bottom: 0.5rem;">خصوصية مطلقة 100%</h3>
+          <p style="color: #94A3B8; font-size: 0.9rem; line-height: 1.7;">
+            بيانات موقعك ورحلتك لا تخرج من جهازك أبداً ولا يتم إرسالها إلى أي خادم سحابي. التطبيق يعمل باستقلالية تامة.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Download CTA Section
+       ======================================================================== -->
+  <section id="download" style="padding: 5rem 1.5rem; background: linear-gradient(180deg, #0F172A 0%, #0B0F17 100%); text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 2.4rem; font-weight: 900; margin-bottom: 1rem;">جاهز لرحلة نوم هادئة في القطار؟</h2>
+      <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem;">
+        حمّل أحدث إصدار من تطبيق TrainWake لأجهزة أندرويد برابط مباشر وسريع، أو افتح نسخة الويب الكاملة فوراً.
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <a href="downloads/TrainWake.apk" download="TrainWake.apk" class="btn-primary" style="font-size: 1.05rem; padding: 0.9rem 2rem;">
+          📥 تحميل التطبيق المباشر (APK)
+        </a>
+        <a href="flutter_web/index.html" target="_blank" class="btn-secondary" style="font-size: 1.05rem; padding: 0.9rem 2rem;">
+          🌐 تشغيل تطبيق الويب الكامل (Flutter Web)
+        </a>
+        <a href="https://github.com/millerfayez3/TrainWake" target="_blank" class="btn-secondary" style="font-size: 1.05rem; padding: 0.9rem 2rem;">
+          ⭐ عرض المشروع على GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Footer
+       ======================================================================== -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <div class="brand-icon" style="width: 32px; height: 32px;">
+          <svg viewBox="0 0 24 24" style="width: 18px; height: 18px;">
+            <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/>
+          </svg>
+        </div>
+        <span style="font-weight: 800; font-size: 1.1rem; font-family: var(--font-en);">TrainWake Egypt</span>
+      </div>
+
+      <p style="font-size: 0.82rem; color: var(--text-muted);">
+        جميع الحقوق محفوظة © 2026 TrainWake • السكك الحديدية المصرية
+      </p>
+
+      <div>
+        <a href="https://github.com/millerfayez3/TrainWake" target="_blank" style="color: var(--accent-amber); font-weight: 700; font-size: 0.88rem;">
+          GitHub Repository ➔
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/stations_data.js"></script>
+  <script src="js/audio_alarm.js"></script>
+  <script src="js/simulation.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
