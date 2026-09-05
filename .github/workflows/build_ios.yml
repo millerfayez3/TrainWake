@@ -8,19 +8,19 @@ on:
 jobs:
   build-ios:
     name: Build iOS App (.ipa / Runner.app)
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Verify Xcode Version
+        run: xcodebuild -version
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           cache: true
-
-      - name: Disable Swift Package Manager (Use CocoaPods)
-        run: flutter config --no-enable-swift-package-manager
 
       - name: Install dependencies
         working-directory: ./train_wake
